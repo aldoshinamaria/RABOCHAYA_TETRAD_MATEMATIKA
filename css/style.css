@@ -449,7 +449,6 @@ body {
   width: 58mm;
   height: 58mm;
   object-fit: contain;
-  filter: drop-shadow(0 4px 14px rgba(124, 58, 237, 0.18));
 }
 .cover .tag {
   margin-top: 8mm;
@@ -499,6 +498,49 @@ body {
   font-size: 13px;
   color: var(--accent-2);
   font-weight: 600;
+}
+
+/* ---------- Ссылки на сообщества ---------- */
+.social-links {
+  text-align: center;
+}
+.social-links .lbl {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--soft);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.social-links .row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.social-links .item {
+  display: inline-block;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #faf5ff;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.3;
+}
+.social-links.cover-social {
+  margin-top: 8mm;
+  padding-bottom: 2mm;
+}
+.social-links.intro-social,
+.intro .social-links {
+  margin: 8px 0 4px;
+}
+.social-links.cert-social {
+  margin-top: 16px;
 }
 
 /* ---------- Логотип бренда ---------- */
@@ -624,7 +666,6 @@ body {
   height: 42mm;
   object-fit: contain;
   margin: 0 auto 8px;
-  filter: drop-shadow(0 3px 10px rgba(124, 58, 237, 0.15));
 }
 .cert h1 {
   font-size: 40px;
