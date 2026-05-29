@@ -69,6 +69,27 @@ function cover(sectionNo, title, subtitle) {
 </section>`;
 }
 
+function rightsPage(sectionNo) {
+  return `<section class="page sheet intro">
+  <h2>Правила использования</h2>
+  <h3>Для кого эта тетрадь</h3>
+  <p>Материал предназначен для летнего повторения математики после 5 класса и подготовки к 6 классу. Подходит для самостоятельной работы ребёнка, занятий с родителями и индивидуальной коррекционной работы учителя.</p>
+
+  <h3>Как получить максимум пользы</h3>
+  <div class="legend">
+    <div class="row"><span class="ic">1</span><div><b>Не спешить.</b> Одна тема или один тренировочный лист в день лучше, чем много заданий без разбора ошибок.</div></div>
+    <div class="row"><span class="ic">2</span><div><b>Проверять не только ответ.</b> Если ответ неверный, ребёнок должен найти место ошибки и решить похожий пример.</div></div>
+    <div class="row"><span class="ic">3</span><div><b>Уровень «5» не обязателен.</b> Слабому ученику важнее уверенно выполнить базовые задания.</div></div>
+  </div>
+
+  <h3>Авторские права</h3>
+  <p>Тетрадь является авторским учебным материалом проекта «Учитель &amp; Нейросети». Материал можно использовать для личной работы с ребёнком или в своём классе. Нельзя перепродавать, публиковать в открытом доступе, передавать в складчины или выдавать за собственную разработку.</p>
+  <p>Материал не является копией какого-либо учебника или задачника. Задания составлены для повторения основных тем курса математики 5 класса.</p>
+
+  <div class="page-foot"><span>Раздел ${sectionNo} · правила использования</span><span></span></div>
+</section>`;
+}
+
 function contents(sectionNo, title, topics, extraCount) {
   const topicItems = topics.map((t) => `    <li><span>${t}</span></li>`).join("\n");
   const extraItems = Array.from({ length: extraCount }, (_, i) => `    <li><span>Дополнительная тренировка ${i + 1}</span></li>`).join("\n");
@@ -123,6 +144,26 @@ ${originalBlocks.join("\n")}
 ${extras}
   </div>
   <div class="page-foot"><span>Раздел ${sectionNo} · ответы</span><span></span></div>
+</section>`;
+}
+
+function buyerGuide() {
+  return `<section class="page sheet intro">
+  <h2>Памятка для взрослого</h2>
+  <h3>Если ребёнок не освоил тему</h3>
+  <p>Не начинайте с контрольного листа. Сначала вместе прочитайте правило, затем разберите готовый пример и только после этого дайте 2–3 похожих задания. Если ребёнок ошибся два раза подряд, значит нужна не новая тема, а возврат к алгоритму.</p>
+
+  <h3>Как понять, что тема закреплена</h3>
+  <div class="legend">
+    <div class="row"><span class="ic">✓</span><div>Ребёнок решает базовые задания без подсказки.</div></div>
+    <div class="row"><span class="ic">✓</span><div>Может объяснить, какое правило применил.</div></div>
+    <div class="row"><span class="ic">✓</span><div>После ошибки сам находит место, где сбился.</div></div>
+  </div>
+
+  <h3>Мини-диагностика</h3>
+  <p>0–1 ошибка на базовом листе — можно переходить дальше. 2–3 ошибки — нужна повторная тренировка. Больше 3 ошибок — ребёнок пока не понял правило, вернитесь к готовому примеру.</p>
+
+  <div class="page-foot"><span>Памятка для взрослого</span><span></span></div>
 </section>`;
 }
 
@@ -280,6 +321,8 @@ for (const section of data) {
   const html = [
     head(`Раздел ${section.no}. ${section.title}`),
     cover(section.no, section.title, section.subtitle),
+    rightsPage(section.no),
+    buyerGuide(),
     contents(section.no, section.title, section.topics, section.extra.length),
     ...section.pages,
     ...extraPages,
@@ -291,15 +334,20 @@ for (const section of data) {
 
 const index = `${head("Летние тетради по разделам")}
 <section class="page sheet contents">
-  <h2>Летняя тетрадь по математике · 5 класс</h2>
-  <div class="grp">Файлы по разделам</div>
+  <h2>Летний комплект по математике · 5 класс</h2>
+  <div class="note remember"><span class="ico">📌</span><b>Для кого</b>Для будущих шестиклассников, которым нужно спокойно повторить математику 5 класса: натуральные числа, дроби, десятичные дроби и геометрию.</div>
+  <div class="grp">Рабочие тетради по разделам</div>
   <ul>
     <li><span><a href="razdel-1-naturalnye-chisla.html">Раздел 1. Натуральные числа</a></span></li>
     <li><span><a href="razdel-2-obyknovennye-drobi.html">Раздел 2. Обыкновенные дроби</a></span></li>
     <li><span><a href="razdel-3-desyatichnye-drobi.html">Раздел 3. Десятичные дроби</a></span></li>
     <li><span><a href="razdel-4-geometriya.html">Раздел 4. Геометрия</a></span></li>
   </ul>
-  <div class="note remember"><span class="ico">📌</span><b>Что изменилось</b>Каждый раздел вынесен в отдельный файл и дополнен тренировочными листами. Раздел дробей расширен сильнее остальных, потому что это самая трудная тема для слабого ученика.</div>
+  <div class="grp">Демо и описание</div>
+  <ul>
+    <li><span><a href="../demo.html">Демо-фрагмент для покупателя</a></span></li>
+  </ul>
+  <div class="note help"><span class="ico">🚑</span><b>Методическая логика</b>Внутри каждой тетради есть правила, готовые примеры, задания с пропусками, самостоятельная тренировка, разбор ошибок и ответы.</div>
 </section>
 ${foot()}`;
 fs.writeFileSync(path.join(outDir, "index.html"), index, "utf8");
