@@ -1,0 +1,631 @@
+/* ============================================================
+   Летняя коррекционная тетрадь по математике (5 класс)
+   Вёрстка под А4, готова к печати и экспорту в PDF
+   ============================================================ */
+
+:root {
+  --ink: #1f2933;
+  --soft: #52606d;
+  --line: #cbd2d9;
+  --accent: #2563eb;
+  --accent-soft: #e8f0fe;
+  --green: #15803d;
+  --green-soft: #e7f6ec;
+  --amber: #b45309;
+  --amber-soft: #fdf3e3;
+  --red: #b91c1c;
+  --red-soft: #fdeaea;
+  --purple: #6d28d9;
+  --purple-soft: #f1ebfb;
+  --paper: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #e2e6ea;
+  color: var(--ink);
+  font-family: "Segoe UI", "PT Sans", "Arial", sans-serif;
+  font-size: 13px;
+  line-height: 1.24;
+}
+
+/* ---------- Страница А4 ---------- */
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  margin: 10mm auto;
+  padding: 9mm 13mm 13mm 13mm;
+  background: var(--paper);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  page-break-after: always;
+  overflow: hidden;
+}
+
+.page:last-child {
+  page-break-after: auto;
+}
+
+/* колонтитул снизу */
+.page-foot {
+  position: absolute;
+  left: 13mm;
+  right: 13mm;
+  bottom: 6mm;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--soft);
+  border-top: 1px solid var(--line);
+  padding-top: 2mm;
+  background: #fff;
+}
+
+/* ---------- Заголовки темы ---------- */
+.topic-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border-bottom: 2.5px solid var(--accent);
+  padding-bottom: 5px;
+  margin-bottom: 6px;
+}
+
+.topic-num {
+  flex: 0 0 auto;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 9px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topic-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.topic-sub {
+  margin: 1px 0 0;
+  font-size: 12px;
+  color: var(--soft);
+}
+
+/* ---------- Шаги ---------- */
+.step {
+  margin: 0 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.step-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.2px;
+  padding: 4px 11px;
+}
+
+.step-label .num {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 5px;
+  font-size: 11px;
+  padding: 1px 7px;
+}
+
+.step-body {
+  padding: 6px 11px;
+}
+
+.step-body p {
+  margin: 0 0 2px;
+}
+
+.step-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Вариант шага «Делаем вместе» — зелёная рамка */
+.step.together .step-label {
+  background: var(--green-soft);
+  color: var(--green);
+}
+.step.together .step-label .num {
+  background: var(--green);
+}
+
+/* Вариант «Закончи решение» — фиолетовая */
+.step.finish .step-label {
+  background: var(--purple-soft);
+  color: var(--purple);
+}
+.step.finish .step-label .num {
+  background: var(--purple);
+}
+
+/* ---------- Разбор примера ---------- */
+.solve {
+  background: #fafbfc;
+  border: 1px dashed var(--line);
+  border-radius: 7px;
+  padding: 5px 11px;
+  margin: 5px 0;
+}
+
+.solve .line {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 2px 0;
+  border-bottom: 1px dotted #e3e7eb;
+}
+.solve .line:last-child {
+  border-bottom: none;
+}
+.solve .calc {
+  font-family: "Cambria Math", "Georgia", serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.solve .why {
+  font-size: 13px;
+  color: var(--soft);
+}
+
+/* ---------- Поля для записи ---------- */
+.write {
+  border-bottom: 1.4px dotted #9aa5b1;
+  display: inline-block;
+  min-width: 40px;
+  height: 1.1em;
+  vertical-align: baseline;
+}
+.write.wide {
+  display: block;
+  width: 100%;
+  margin: 14px 0;
+}
+
+.write-lines {
+  margin: 8px 0;
+}
+.write-lines .ln {
+  border-bottom: 1.4px dotted #9aa5b1;
+  height: 26px;
+}
+
+/* пустая клетка/ответный бокс */
+.answer-box {
+  display: inline-block;
+  min-width: 70px;
+  min-height: 30px;
+  border: 1.6px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  vertical-align: middle;
+  margin: 0 4px;
+}
+
+/* ---------- Задания «Реши сам» ---------- */
+.tasks {
+  counter-reset: task;
+  margin: 6px 0;
+}
+.task {
+  display: flex;
+  gap: 9px;
+  padding: 4px 0;
+  border-bottom: 1px dotted #e3e7eb;
+}
+.task:last-child {
+  border-bottom: none;
+}
+.task::before {
+  counter-increment: task;
+  content: counter(task);
+  flex: 0 0 auto;
+  width: 21px;
+  height: 21px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.task .q {
+  flex: 1;
+}
+.task .calc {
+  font-family: "Cambria Math", "Georgia", serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ---------- Рубрики ---------- */
+.note {
+  border-radius: 8px;
+  padding: 5px 12px 5px 38px;
+  position: relative;
+  margin: 4px 0;
+  font-size: 12.5px;
+}
+.note .ico {
+  position: absolute;
+  left: 11px;
+  top: 6px;
+  font-size: 17px;
+  line-height: 1;
+}
+.note b {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 12.5px;
+}
+
+.note.remember {
+  background: var(--green-soft);
+  border: 1px solid #bfe3cb;
+}
+.note.remember b {
+  color: var(--green);
+}
+
+.note.mistakes {
+  background: var(--amber-soft);
+  border: 1px solid #f3dcb0;
+}
+.note.mistakes b {
+  color: var(--amber);
+}
+
+.note.help {
+  background: var(--red-soft);
+  border: 1px solid #f4c2c2;
+}
+.note.help b {
+  color: var(--red);
+}
+.note.help ol {
+  margin: 1px 0 0;
+  padding-left: 16px;
+}
+.note.help li {
+  margin: 0;
+}
+
+/* ---------- Проверь себя ---------- */
+.check {
+  background: #f3f6ff;
+  border: 1px dashed var(--accent);
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin: 6px 0;
+  font-size: 12.5px;
+}
+.check .ttl {
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 3px;
+}
+.check .ans {
+  font-family: "Cambria Math", "Georgia", serif;
+}
+
+/* ---------- Мотивация ---------- */
+.motivation {
+  margin-top: 6px;
+  border-top: 2px dotted var(--line);
+  padding-top: 5px;
+}
+.motivation .ttl {
+  font-size: 12px;
+  color: var(--soft);
+  margin-bottom: 2px;
+}
+.motivation .opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 1px 0;
+  font-size: 12.5px;
+}
+.motivation .opt .box {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--soft);
+  border-radius: 4px;
+}
+
+/* ---------- Обложка ---------- */
+.cover {
+  background: linear-gradient(150deg, #2563eb 0%, #1d4ed8 55%, #6d28d9 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.cover .tag {
+  margin-top: 18mm;
+  font-size: 16px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.cover h1 {
+  font-size: 52px;
+  margin: 24px 0 6px;
+  line-height: 1.05;
+}
+.cover h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 4px;
+  opacity: 0.95;
+}
+.cover .grade {
+  font-size: 20px;
+  opacity: 0.9;
+}
+.cover .emoji {
+  font-size: 92px;
+  margin: 26px 0;
+}
+.cover .who {
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 16px 20px;
+  font-size: 16px;
+}
+.cover .who .field {
+  display: block;
+  margin-top: 10px;
+  border-bottom: 2px dotted rgba(255, 255, 255, 0.7);
+  height: 28px;
+}
+
+/* ---------- Шмуцтитул раздела ---------- */
+.divider {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.divider .badge {
+  align-self: center;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.divider h2 {
+  text-align: center;
+  font-size: 34px;
+  margin: 0 0 4px;
+}
+.divider .lead {
+  text-align: center;
+  color: var(--soft);
+  font-size: 16px;
+  margin-bottom: 22px;
+}
+.divider .toc {
+  max-width: 130mm;
+  margin: 0 auto;
+}
+.divider .toc li {
+  background: #f7f9fc;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 14px;
+  margin: 7px 0;
+  list-style: none;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.divider .toc {
+  padding: 0;
+}
+
+/* ---------- Содержание ---------- */
+.contents h2 {
+  font-size: 26px;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 8px;
+}
+.contents .grp {
+  font-weight: 700;
+  color: var(--accent);
+  margin: 14px 0 4px;
+}
+.contents ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.contents li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dotted var(--line);
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+/* ---------- Инфо-блоки введения ---------- */
+.intro h2 {
+  font-size: 26px;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 8px;
+}
+.intro h3 {
+  font-size: 17px;
+  margin: 16px 0 6px;
+}
+.legend {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0;
+}
+.legend .row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.legend .row .ic {
+  font-size: 22px;
+}
+
+/* ---------- Сертификат ---------- */
+.cert {
+  text-align: center;
+  border: 10px double var(--accent);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.cert .seal {
+  font-size: 80px;
+  margin-bottom: 10px;
+}
+.cert h1 {
+  font-size: 40px;
+  color: var(--accent);
+  margin: 0 0 18px;
+  letter-spacing: 1px;
+}
+.cert .body {
+  font-size: 22px;
+  max-width: 150mm;
+  margin: 0 auto 26px;
+  line-height: 1.5;
+}
+.cert .name {
+  font-size: 18px;
+  margin: 24px auto 0;
+  max-width: 120mm;
+}
+.cert .name .field {
+  display: block;
+  border-bottom: 2px solid var(--ink);
+  height: 30px;
+  margin-top: 6px;
+}
+.cert .sign {
+  display: flex;
+  justify-content: space-between;
+  max-width: 150mm;
+  margin: 40px auto 0;
+  font-size: 14px;
+  color: var(--soft);
+}
+
+/* ---------- Вспомогательное ---------- */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+  vertical-align: middle;
+  margin: 0 2px;
+  line-height: 1.05;
+}
+.frac .top {
+  border-bottom: 1.6px solid var(--ink);
+  padding: 0 4px;
+}
+.frac .bot {
+  padding: 0 4px;
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--soft);
+  font-style: italic;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.tip-screen {
+  text-align: center;
+  background: #fff9db;
+  border: 1px dashed #e3c84d;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 13px;
+  margin: 10px auto 0;
+}
+
+/* ---------- Печать ---------- */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff;
+  }
+  .page {
+    margin: 0;
+    box-shadow: none;
+    width: 210mm;
+    height: 297mm;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* подсказка на экране (не печатается) */
+.print-hint {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  z-index: 99;
+  max-width: 240px;
+}
