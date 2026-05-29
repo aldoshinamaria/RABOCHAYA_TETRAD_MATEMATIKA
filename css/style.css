@@ -4,20 +4,23 @@
    ============================================================ */
 
 :root {
-  --ink: #1f2933;
-  --soft: #52606d;
-  --line: #cbd2d9;
-  --accent: #2563eb;
-  --accent-soft: #e8f0fe;
-  --green: #15803d;
-  --green-soft: #e7f6ec;
-  --amber: #b45309;
-  --amber-soft: #fdf3e3;
-  --red: #b91c1c;
-  --red-soft: #fdeaea;
-  --purple: #6d28d9;
-  --purple-soft: #f1ebfb;
+  --ink: #1e1630;
+  --soft: #5c5470;
+  --line: #e4dcf5;
+  --accent: #7c3aed;          /* фирменный фиолетовый логотипа */
+  --accent-2: #9333ea;
+  --accent-3: #c084fc;
+  --accent-soft: #f3e8ff;
+  --green: #1e9e6a;
+  --green-soft: #e8faf1;
+  --amber: #c2810b;
+  --amber-soft: #fff6e6;
+  --red: #e0556b;
+  --red-soft: #fdeef1;
+  --purple: #9333ea;
+  --purple-soft: #f3e8ff;
   --paper: #ffffff;
+  --brandgrad: linear-gradient(90deg, #6d28d9 0%, #9333ea 55%, #c084fc 100%);
 }
 
 * {
@@ -28,43 +31,74 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #e2e6ea;
+  background: #f5f0fc;
   color: var(--ink);
   font-family: "Segoe UI", "PT Sans", "Arial", sans-serif;
   font-size: 13px;
-  line-height: 1.24;
+  line-height: 1.26;
 }
 
 /* ---------- Страница А4 ---------- */
 .page {
   position: relative;
   width: 210mm;
-  height: 297mm;
+  min-height: 297mm;
   margin: 10mm auto;
-  padding: 9mm 13mm 13mm 13mm;
+  padding: 11mm 14mm 15mm 14mm;
   background: var(--paper);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
   page-break-after: always;
-  overflow: hidden;
 }
 
 .page:last-child {
   page-break-after: auto;
 }
 
+/* фиксированные одностраничные листы (обложка, шмуцтитулы, сертификат) */
+.page.sheet {
+  height: 297mm;
+  min-height: 297mm;
+  overflow: hidden;
+}
+
+/* блоки, которые нельзя разрывать между страницами при печати */
+.step,
+.note,
+.solve,
+.motivation,
+.check,
+.topic-head,
+.ans-block {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
 /* колонтитул снизу */
 .page-foot {
   position: absolute;
-  left: 13mm;
-  right: 13mm;
-  bottom: 6mm;
+  left: 14mm;
+  right: 14mm;
+  bottom: 7mm;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 11px;
   color: var(--soft);
   border-top: 1px solid var(--line);
   padding-top: 2mm;
   background: #fff;
+}
+/* прячем старые номера страниц и показываем бренд */
+.page-foot span:last-child {
+  display: none;
+}
+.page-foot::after {
+  content: "";
+  display: block;
+  width: 34mm;
+  height: 10mm;
+  background: url("../img/logo-uchitel-neiroseti.png") no-repeat right center;
+  background-size: contain;
 }
 
 /* ---------- Заголовки темы ---------- */
@@ -161,6 +195,36 @@ body {
 }
 .step.finish .step-label .num {
   background: var(--purple);
+}
+
+/* Вариант «Уровень 5» — золотой, для сложных заданий */
+.step.level5 {
+  border-color: #e9c766;
+}
+.step.level5 .step-label {
+  background: linear-gradient(90deg, #fff4d6 0%, #ffe9c2 100%);
+  color: #a86a12;
+}
+.step.level5 .step-label .num {
+  background: #d9930f;
+}
+.step.level5 .step-label .star {
+  margin-left: auto;
+  font-size: 12px;
+  color: #a86a12;
+  font-weight: 700;
+}
+/* подпись уровня под номером задания */
+.lvl-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: #fff4d6;
+  color: #a86a12;
+  margin-left: 6px;
+  vertical-align: middle;
 }
 
 /* ---------- Разбор примера ---------- */
@@ -362,52 +426,84 @@ body {
   border-radius: 4px;
 }
 
-/* ---------- Обложка ---------- */
+/* ---------- Обложка (светлая) ---------- */
 .cover {
-  background: linear-gradient(150deg, #2563eb 0%, #1d4ed8 55%, #6d28d9 100%);
-  color: #fff;
+  background:
+    radial-gradient(900px 520px at 82% 8%, #f3e8ff 0%, rgba(243, 232, 255, 0) 60%),
+    radial-gradient(760px 520px at 12% 92%, #ede9fe 0%, rgba(237, 233, 254, 0) 60%),
+    #ffffff;
+  color: var(--ink);
   display: flex;
   flex-direction: column;
   text-align: center;
+  border-top: 8px solid transparent;
+  border-image: var(--brandgrad) 1;
+}
+.cover .brandbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10mm;
+}
+.cover .brand-logo {
+  width: 58mm;
+  height: 58mm;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 14px rgba(124, 58, 237, 0.18));
 }
 .cover .tag {
-  margin-top: 18mm;
-  font-size: 16px;
-  letter-spacing: 4px;
+  margin-top: 8mm;
+  font-size: 14px;
+  letter-spacing: 5px;
   text-transform: uppercase;
-  opacity: 0.9;
+  color: var(--accent-2);
+  font-weight: 700;
 }
 .cover h1 {
-  font-size: 52px;
-  margin: 24px 0 6px;
-  line-height: 1.05;
+  font-size: 56px;
+  margin: 14px 0 8px;
+  line-height: 1.02;
+  background: var(--brandgrad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
 }
 .cover h2 {
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 23px;
+  font-weight: 600;
   margin: 0 0 4px;
-  opacity: 0.95;
+  color: var(--ink);
 }
 .cover .grade {
-  font-size: 20px;
-  opacity: 0.9;
-}
-.cover .emoji {
-  font-size: 92px;
-  margin: 26px 0;
+  font-size: 17px;
+  color: var(--soft);
 }
 .cover .who {
   margin-top: auto;
-  background: rgba(255, 255, 255, 0.14);
+  background: #faf5ff;
+  border: 1.5px solid var(--line);
   border-radius: 14px;
   padding: 16px 20px;
   font-size: 16px;
+  color: var(--soft);
 }
 .cover .who .field {
   display: block;
-  margin-top: 10px;
-  border-bottom: 2px dotted rgba(255, 255, 255, 0.7);
+  margin-top: 12px;
+  border-bottom: 2px dotted #9fb0cc;
   height: 28px;
+}
+.cover .level-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+/* ---------- Логотип бренда ---------- */
+.brand-logo {
+  display: block;
 }
 
 /* ---------- Шмуцтитул раздела ---------- */
@@ -418,21 +514,26 @@ body {
 }
 .divider .badge {
   align-self: center;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent);
+  width: 116px;
+  height: 116px;
+  border-radius: 28px;
+  background: var(--brandgrad);
+  color: #fff;
   font-size: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.22);
 }
 .divider h2 {
   text-align: center;
   font-size: 34px;
   margin: 0 0 4px;
+  background: var(--brandgrad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .divider .lead {
   text-align: center;
@@ -518,9 +619,12 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-.cert .seal {
-  font-size: 80px;
-  margin-bottom: 10px;
+.cert .cert-logo {
+  width: 42mm;
+  height: 42mm;
+  object-fit: contain;
+  margin: 0 auto 8px;
+  filter: drop-shadow(0 3px 10px rgba(124, 58, 237, 0.15));
 }
 .cert h1 {
   font-size: 40px;
@@ -552,6 +656,50 @@ body {
   margin: 40px auto 0;
   font-size: 14px;
   color: var(--soft);
+}
+
+/* ---------- Блок ОТВЕТЫ (в конце тетради) ---------- */
+.answers h2 {
+  font-size: 26px;
+  margin: 0 0 4px;
+  background: var(--brandgrad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.answers .lead {
+  color: var(--soft);
+  margin: 0 0 12px;
+  font-size: 13px;
+}
+.answers .grp {
+  font-weight: 700;
+  color: var(--accent);
+  margin: 12px 0 6px;
+  border-bottom: 2px solid var(--accent-soft);
+  padding-bottom: 3px;
+}
+.ans-block {
+  margin: 5px 0;
+}
+.ans-block .t {
+  font-weight: 700;
+  color: var(--ink);
+}
+.ans-block .a {
+  font-family: "Cambria Math", "Georgia", serif;
+}
+.ans-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 22px;
+  font-size: 12.5px;
+}
+.ans-grid .ans-block {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fbfcfe;
 }
 
 /* ---------- Вспомогательное ---------- */
